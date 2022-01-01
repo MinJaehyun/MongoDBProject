@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { Article } = require("./mongoose/model");
+const model = require("./mongoose/model");
 const app = express();
 const PORT = 3000;
 
@@ -15,11 +15,15 @@ app.get("/", (req, res) => {
 });
 
 // test mongoose connect
-app.get("detail/:id", async (req, res) => {
-  // article 한개를 가져오기
-  const { id } = req.params;
-  const article = await Article.findById(id);
+app.post("/create", async (req, res) => {
+  // article 전체 가져오기
+  const { title, content } = req.body;
+  const article = await model.Article({
+    title,
+    content,
+  }).save();
   console.log('article: ', article);
+  res.send(article);
 });
 
 // listen
