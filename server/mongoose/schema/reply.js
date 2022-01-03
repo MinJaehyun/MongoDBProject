@@ -16,6 +16,4 @@ const Reply = new Schema({
   replyImgAddress: { type: String },
 });
 
-module.exports = {
-  Reply,
-}
+module.exports = Reply;
