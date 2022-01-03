@@ -14,6 +14,4 @@ const Comment = new Schema({
   articleImgAddress: { type: String },
 });
 
-module.exports = {
-  Comment,
-}
+module.exports = Comment;
