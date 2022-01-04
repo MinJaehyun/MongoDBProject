@@ -29,10 +29,25 @@ router.patch("/reply/update", async (req, res) => {
   res.send(reply);
 });
 
-// 대댓글 삭제
-router.delete("/reply/delete/:id", async (req, res) => {
-  const { id, author } = req.params;
+// 대댓글 HARD DELETE
+router.delete("/reply/delete/hard", async (req, res) => {
+  const { id, author } = req.body;
   const reply = await Reply.deleteOne({ _id: id, author });
+  res.send(reply);
+});
+
+// 대댓글 SOFT DELETE
+router.delete("/reply/delete/soft", async (req, res) => {
+  const { id, author } = req.body;
+  const reply = await Reply.findOneAndUpdate(
+    {
+      _id: id,
+      author,
+    },
+    {
+      deleteTime: new Date().getTime() + 30 * 24 * 60 * 60 * 1000,
+    },
+  )
   res.send(reply);
 });
 

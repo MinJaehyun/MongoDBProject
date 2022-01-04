@@ -15,6 +15,7 @@ const Article = new Schema({
   viewCount: { type: Number, default: 0 },
   thumbupCount: { type: Number, default: 0 },
   commentCount: { type: Number, default: 0 },
+  deleteTime: { type: Number, default: 0 },
 
   // option data
   mention: { type: Schema.Types.ObjectId, ref: "User" },

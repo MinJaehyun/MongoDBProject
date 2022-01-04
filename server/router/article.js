@@ -38,13 +38,28 @@ router.patch("/article/update", async (req, res) => {
   res.send(article);
 });
 
-// DELETE, /delete/:id
-router.delete("/article/delete/:id", async (req, res) => {
+// DELETE, HARD DELETE
+router.delete("/article/delete/hard", async (req, res) => {
   const { id, author } = req.body;
   const article = await model.Article.deleteOne({
     _id: id,
     author,
   });
+  res.send(article);
+});
+
+// article SOFT DELETE
+router.delete("/article/delete/soft", async (req, res) => {
+  const { id, author } = req.body;
+  const article = await Article.findOneAndUpdate(
+    {
+      _id: id,
+      author,
+    },
+    {
+      deleteTime: new Date().getTime() + 30 * 24 * 60 * 60 * 1000,
+    },
+  )
   res.send(article);
 });
 

@@ -10,8 +10,8 @@ router.post("/comment/create", async (req, res) => {
   res.send(comment);
 });
 
-// 댓글 삭제
-router.delete("/comment/delete", async (req, res) => {
+// 댓글 HARD DELETE
+router.delete("/comment/delete/hard", async (req, res) => {
   const { id, author } = req.body;
   const comment = await Comment.deleteOne(
     {
@@ -20,6 +20,21 @@ router.delete("/comment/delete", async (req, res) => {
     }
   );
 
+  res.send(comment);
+});
+
+// 댓글 SOFT DELETE
+router.delete("/comment/delete/soft", async (req, res) => {
+  const { id, author } = req.body;
+  const comment = await Comment.findOneAndUpdate(
+    {
+      _id: id,
+      author,
+    },
+    {
+      deleteTime: new Date().getTime() + 30 * 24 * 60 * 60 * 1000,
+    },
+  )
   res.send(comment);
 });
 

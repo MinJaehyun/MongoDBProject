@@ -11,6 +11,7 @@ const Reply = new Schema({
 
   // variable
   thumbupCount: { type: Number, default: 0 },
+  deleteTime: { type: Number, default: 0 },
 
   // option
   replyImgAddress: { type: String },

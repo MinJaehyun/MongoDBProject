@@ -8,8 +8,11 @@ const Comment = new Schema({
   createAt: { type: Date, default: Date.now },
   author: { type: Schema.Types.ObjectID, ref: "User" },
   article: { type: Schema.Types.ObjectID, ref: "Article" },
+
   // variable
   thumbupCount: { type: Number, default: 0 },
+  deleteTime: { type: Number, default: 0 },
+
   // option
   articleImgAddress: { type: String },
 });
