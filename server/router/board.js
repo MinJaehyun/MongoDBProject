@@ -22,7 +22,7 @@ router.get("/board/:slug", async (req, res) => {
 router.post("/board/create", async (req, res) => {
   const { title, slug } = req.body;
   const newBoard = await Board({ title, slug }).save();
-  res.send(newBoard._id ? true : false);
+  res.send(newBoard);
 });
 
 module.exports = router;

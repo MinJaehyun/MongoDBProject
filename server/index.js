@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
-const { article, board, user } = require("./router");
+const { article, board, comment, user } = require("./router");
 const PORT = 3000;
 
 // middleware
@@ -18,6 +18,7 @@ app.get("/", (req, res) => {
 // router
 app.use(article);
 app.use(board);
+app.use(comment);
 app.use(user);
 
 // listen
