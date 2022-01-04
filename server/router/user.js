@@ -17,21 +17,19 @@ router.post("/user/signup", async (req, res) => {
 // login - user 인증하기 위한 email, password 검사
 router.post("/user/login", async (req, res) => {
   const { email, password } = req.body;
-  const userEmail = await model.User.find({ email: email });
-  // console.log(userEmail);
+  const userEmail = await model.User.findOne({ email: email });
+  const correctUserEmail = userEmail.authenticate(password);
 
   if (!userEmail._id) {
     return res.send({ error: true, msg: "존재하지 않는 이메일" });
   }
 
-  const correctUserEmail = userEmail.authenticate(password);
   if (!correctUserEmail) {
     return res.send({ error: true, msg: "잘못된 패스워드" });
   }
 
   // server/index.js 에서 설정한 secret 을 가져온다
   const secret = req.app.get("jwt-secret");
-
   const token = jwt.sign(
     {
       id: userEmail._id,
@@ -43,6 +41,7 @@ router.post("/user/login", async (req, res) => {
       expiresIn: "7d",
     },
   );
+
   // 로그인 시, 토큰을 같이 보내준다
   res.send({
     error: false,
