@@ -52,4 +52,17 @@ router.post("/user/login", async (req, res) => {
   });
 });
 
+// 사용자 토큰 체크
+router.get("/user/token", async (req, res) => {
+  const { authorization } = req.headers;
+  if (!authorization) return res.send(false);
+
+  const token = authorization.split(" ")[1];
+  const secret = req.app.get("jwt-secret");
+
+  jwt.verify(token, secret, (err, data) => {
+    err ? res.send(err) : res.send(data);
+  });
+});
+
 module.exports = router;
