@@ -25,7 +25,6 @@ router.post("/article/create", async (req, res) => {
       content,
       title,
     }).save();
-    // console.log('article: ', article);
     res.send(article);
   });
 });
