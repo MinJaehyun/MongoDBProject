@@ -8,3 +8,6 @@
     6. 비밀번호 암호화 
     7. JWT 으로 사용자 인증 
     8. 로그인, 회원가입 
+
+### Github Action
+    build and eslint test
