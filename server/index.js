@@ -24,7 +24,7 @@ app.use(article);
 app.use(board);
 app.use(comment);
 app.use(reply);
-app.use(user);;
+app.use(user);
 
 
 // listen
