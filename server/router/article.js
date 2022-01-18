@@ -66,7 +66,7 @@ router.delete("/article/delete/hard", async (req, res) => {
 // article SOFT DELETE
 router.delete("/article/delete/soft", async (req, res) => {
   const { id, author } = req.body;
-  const article = await Article.findOneAndUpdate(
+  const article = await model.Article.findOneAndUpdate(
     {
       _id: id,
       author,
