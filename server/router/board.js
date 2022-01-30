@@ -4,25 +4,33 @@ const { Article, Board } = require("../mongoose/model");
 
 // 게시판별 게시글 가져오기
 router.get("/board/:slug", async (req, res) => {
-  const { slug } = req.params;
-  const board = await Board.findOne({ slug });
-
-  // board 가 없으면 존재하지 않는 게시판이고, 
-  // board 가 있으면 board 에 해당하는 모든 게시글을 가져온다.
-
-  if (!board._id) {
-    return res.send({ error: true, msg: "존재하지 않는 게시판", articles: [] })
+  try {
+    const { slug } = req.params;
+    const board = await Board.findOne({ slug });
+    // board 가 없으면 존재하지 않는 게시판이고, board 가 있으면 board 에 해당하는 모든 게시글을 가져온다.
+    if (!board) return res.status(400).send({ error: true, msg: "존재하지 않는 게시판", articles: [] })
+    const article = await Article.find({ board: board._id });
+    return res.send({ error: false, msg: "게시글 가져오기 성공", article });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({ error: error.message });
   }
-
-  const article = await Article.find({ board: board._id });
-  res.send({ error: false, msg: "게시글 가져오기 성공", article });
 });
 
-// 게시판 생성하기
+// 게시판 생성
 router.post("/board/create", async (req, res) => {
-  const { title, slug } = req.body;
-  const newBoard = await Board({ title, slug }).save();
-  res.send(newBoard);
+  try {
+    const { title, slug } = req.body;
+    if (!title) return res.status(400).send({ err: "title is required" });
+    if (!slug) return res.status(400).send({ err: "slug is required" });
+    const newBoard = await Board({ title, slug }).save();
+    return res.send(newBoard);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({ error: error.message });
+  }
 });
+
+// TODO: 나중에 카테고리 변경 및 완전삭제 APIs 를 관리자용으로 만들기
 
 module.exports = router;
