@@ -7,7 +7,6 @@ const Article = new Schema({
   author: { type: Schema.Types.ObjectId, ref: "User" },
   title: { type: String, required: true },
   content: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
   // 게시글은 게시판에 속하므로 게시글에서 게시판을 참조한다
   board: { type: Schema.Types.ObjectId, ref: "Board" },
 
@@ -20,8 +19,7 @@ const Article = new Schema({
   // option data
   mention: { type: Schema.Types.ObjectId, ref: "User" },
   articleImgAddress: { type: String },
-
-});
+}, { timestamps: true });
 
 Article.plugin(AutoIncrement, { inc_field: 'key' });
 
