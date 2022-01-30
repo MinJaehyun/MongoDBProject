@@ -16,6 +16,8 @@ const model = (() => {
     `mongodb+srv://${process.env.DB_ID}:${process.env.DB_PASSWORD}@cluster0.gnquy.mongodb.net/devMongoDBProject?retryWrites=true&w=majority`
   );
 
+  mongoose.set('debug', true);
+
   // schema 를 가져와 model 로 생성
   const model = {};
   for (let key in schema) {
