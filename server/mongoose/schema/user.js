@@ -6,9 +6,8 @@ const User = new Schema({
   email: { type: String, required: true, unique: true },
   hashedPassword: { type: String, required: true },
   nickname: { type: String, required: true },
-  createAt: { type: String, default: Date.now },
   salt: { type: String, required: true },
-});
+}, { timestamps: true });
 
 // password 가상 선택자
 User.virtual("password").set(function (password) {

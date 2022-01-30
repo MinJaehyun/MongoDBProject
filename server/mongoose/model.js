@@ -13,7 +13,7 @@ const model = (() => {
 
   // mongoDB connect
   mongoose.connect(
-    `mongodb+srv://${process.env.DB_ID}:${process.env.DB_PASSWORD}@cluster0.gnquy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+    `mongodb+srv://${process.env.DB_ID}:${process.env.DB_PASSWORD}@cluster0.gnquy.mongodb.net/devMongoDBProject?retryWrites=true&w=majority`
   );
 
   // schema 를 가져와 model 로 생성

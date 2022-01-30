@@ -7,7 +7,6 @@ const Reply = new Schema({
   author: { type: Schema.Types.ObjectId, ref: "User" },
   comment: { type: Schema.Types.ObjectId, ref: "Comment" },
   content: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
 
   // variable
   thumbupCount: { type: Number, default: 0 },
@@ -15,6 +14,6 @@ const Reply = new Schema({
 
   // option
   replyImgAddress: { type: String },
-});
+}, { timestamps: true });
 
 module.exports = Reply;
