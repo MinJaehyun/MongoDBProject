@@ -1,6 +1,6 @@
 const Router = require('express');
 const router = Router();
-const { model } = require('../mongoose');
+const model = require('../mongoose/model');
 const jwt = require("jsonwebtoken");
 
 // signup
@@ -14,7 +14,7 @@ router.post("/user/signup", async (req, res) => {
 
     const newUser = await model.User({ nickname, email, password }).save();
     if (!newUser) return res.send({ err: "Failed to sign up" });
-    return res.send(newUser);
+    return res.status(200).send("Membership registration completed");
   } catch (error) {
     console.log(error);
     return res.status(500).send({ error: error.message });
@@ -55,6 +55,12 @@ router.post("/user/login", async (req, res) => {
     console.log(error);
     return res.status(500).send({ error: error.message });
   }
+});
+
+// TODO: logout 기능 추가하기
+router.post("/user/logout", async (req, res) => {
+  console.log(req.body);
+  console.log('res: ', res);
 });
 
 // 사용자 토큰 체크

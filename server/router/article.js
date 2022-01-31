@@ -8,8 +8,7 @@ const jwt = require("jsonwebtoken");
 router.post("/article/create", async (req, res) => {
   try {
     const { board, content, title } = req.body;
-    if (!mongoose.isValidObjectId(board)) return res.status(400).send({ err: "invalid boardId" });
-    if (!content | !title) return res.status(400).send({ err: "Both content and title is required" });
+    if (!board | !content | !title) return res.status(400).send({ err: "Both board and content and title is required" });
     // router/user 에 작성한 token 체크 로직을 활용한다
     const { authorization } = req.headers;
     if (!authorization) return res.status(401).send({ err: "Unauthorized" });
@@ -59,14 +58,7 @@ router.get("/article/detail/:id", async (req, res) => {
 router.patch("/article/update", async (req, res) => {
   try {
     const { id, author, title, content } = req.body;
-    if (!mongoose.isValidObjectId(id)) {
-      return res.status(400).send({ err: "invalid articleId" });
-    }
-    if (!mongoose.isValidObjectId(author)) {
-      return res.status(400).send({ err: "invalid authorId" });
-    }
-    if (!title) return res.status(400).send({ err: "title is required" });
-    if (!content) return res.status(400).send({ err: "content is required" });
+    if (!id | !author | !title | !content) return res.status(400).send({ err: "id, author, title, content is required" });
     const article = await model.Article.findByIdAndUpdate(
       { _id: id, author },
       { title, content },
@@ -83,13 +75,7 @@ router.patch("/article/update", async (req, res) => {
 router.delete("/article/delete/hard", async (req, res) => {
   try {
     const { id, author } = req.body;
-
-    if (!mongoose.isValidObjectId(id)) {
-      return res.status(400).send({ err: "invalid articleId" });
-    }
-    else if (!mongoose.isValidObjectId(author)) {
-      return res.status(400).send({ err: "invalid authorId" });
-    }
+    if (!id | !author) return res.status(400).send({ err: "Both id and author is required" });
 
     const article = await model.Article.findByIdAndDelete({
       _id: id,
@@ -106,13 +92,7 @@ router.delete("/article/delete/hard", async (req, res) => {
 router.delete("/article/delete/soft", async (req, res) => {
   try {
     const { id, author } = req.body;
-
-    if (!mongoose.isValidObjectId(id)) {
-      return res.status(400).send({ err: "invalid articleId" });
-    }
-    else if (!mongoose.isValidObjectId(author)) {
-      return res.status(400).send({ err: "invalid authorId" });
-    }
+    if (!id | !author) return res.status(400).send({ err: "id, author is required" });
 
     const article = await model.Article.findByIdAndUpdate(
       {
