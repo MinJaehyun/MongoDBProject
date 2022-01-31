@@ -57,10 +57,18 @@ router.post("/user/login", async (req, res) => {
   }
 });
 
-// TODO: logout 기능 추가하기
+// FIXME: 임시 logout
 router.post("/user/logout", async (req, res) => {
-  console.log(req.body);
-  console.log('res: ', res);
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).send({ err: "email is required" });
+    // email 을 찾고 지운다.
+    const logout = await model.User.findOneAndDelete(email);
+    return res.send(logout);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({ error: error.message });
+  }
 });
 
 // 사용자 토큰 체크
