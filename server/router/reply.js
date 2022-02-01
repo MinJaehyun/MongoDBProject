@@ -5,68 +5,94 @@ const jwt = require("jsonwebtoken");
 
 // 대댓글 생성
 router.post("/reply/create", async (req, res) => {
-  const { comment, content } = req.body;
-  const { authorization } = req.headers;
+  try {
+    const { commentId, content } = req.body;
+    if (!commentId || !content) return res.status(400).send({ err: "commentId and content is required" });
+    const { authorization } = req.headers;
+    if (!authorization) return res.status(401).send({ err: "Unauthorized" });
 
-  if (!authorization) {
-    return res.send({
-      error: true,
-      msg: "토큰이 존재하지 않음",
+    const token = authorization.split(" ")[1];
+    const secret = req.app.get("jwt-secret");
+
+    jwt.verify(token, secret, async (err, data) => {
+      if (err) return res.send(err);
+      const reply = await Reply({ author: data.id, commentId, content }).save();
+      return res.send(reply);
     });
+  } catch (err) {
+    console.log('err: ', err);
+    return res.status(500).send({ err: err.message });
   }
 
-  const token = authorization.split(" ")[1];
-  const secret = req.app.get("jwt-secret");
+});
 
-  jwt.verify(token, secret, async (err, data) => {
-    if (err) {
-      res.send(err);
-    }
-    const reply = await Reply({ author: data.id, comment, content }).save();
-    res.send(reply);
-  });
-
+// 대댓글 전체 조회
+router.get("/reply/read", async (req, res) => {
+  try {
+    const reply = await Reply.find({});
+    return res.send(reply);
+  } catch (err) {
+    console.log('err: ', err);
+    return res.status(500).send({ err: err.message });
+  }
 });
 
 // 대댓글 변경
 router.patch("/reply/update", async (req, res) => {
-  // 대댓글을 변경 시 필요한것은?
-  const { id, author, content } = req.body;
-  const reply = await Reply.findOneAndUpdate(
-    {
-      _id: id,
-      author,
-    },
-    {
-      content
-    },
-    {
-      new: true,
-    }
-  )
-  res.send(reply);
+  try {
+    const { replyId, authorId, content } = req.body;
+    if (!replyId || !authorId || !content) return res.status(500).send({ err: "replyId and authorId and content is required" })
+    const reply = await Reply.findOneAndUpdate(
+      {
+        _id: replyId,
+        authorId,
+      },
+      {
+        content
+      },
+      {
+        new: true,
+      }
+    )
+    return res.send(reply);
+  } catch (err) {
+    console.log('err: ', err);
+    return res.status(500).send({ err: err.message });
+  }
 });
 
 // 대댓글 HARD DELETE
 router.delete("/reply/delete/hard", async (req, res) => {
-  const { id, author } = req.body;
-  const reply = await Reply.deleteOne({ _id: id, author });
-  res.send(reply);
+  try {
+    const { replyId, authorId } = req.body;
+    if (!replyId || !authorId) return res.status(400).send({ err: "replyId and authorId is required" });
+    const reply = await Reply.deleteOne({ _id: replyId, authorId });
+    return res.send(reply);
+  } catch (err) {
+    console.log('err: ', err);
+    return res.status(500).send({ err: err.message });
+  }
 });
 
 // 대댓글 SOFT DELETE
 router.delete("/reply/delete/soft", async (req, res) => {
-  const { id, author } = req.body;
-  const reply = await Reply.findOneAndUpdate(
-    {
-      _id: id,
-      author,
-    },
-    {
-      deleteTime: new Date().getTime() + 30 * 24 * 60 * 60 * 1000,
-    },
-  )
-  res.send(reply);
+  try {
+    const { replyId, authorId } = req.body;
+    if (!replyId || !authorId) return res.status(400).send({ err: "replyId and authorId is required" });
+    const reply = await Reply.findOneAndUpdate(
+      {
+        _id: replyId,
+        authorId,
+      },
+      {
+        deleteTime: new Date().getTime() + 30 * 24 * 60 * 60 * 1000,
+      },
+    )
+    return res.send(reply);
+  } catch (err) {
+    console.log('err: ', err);
+    return res.status(500).send({ err: err.message });
+  }
 });
 
 module.exports = router;
