@@ -7,17 +7,17 @@ const jwt = require("jsonwebtoken");
 router.post("/user/signup", async (req, res) => {
   try {
     const { nickname, email, password } = req.body;
+    if (!nickname || !password) return res.status(400).send({ err: "Both nickname and password is required" });
     // 만약 DB 에 email 이 존재하면 이미 생성된 유저 출력하기
     const duplicationUser = await model.User.findOne({ email: email });
-    if (duplicationUser) return res.status(400).send({ err: "existed user" });
-    if (!nickname | !password) return res.status(400).send({ err: "Both nickname and password is required" });
+    if (duplicationUser) return res.status(400).send({ err: "user does not exist" });
 
-    const newUser = await model.User({ nickname, email, password }).save();
-    if (!newUser) return res.send({ err: "Failed to sign up" });
-    return res.status(200).send("Membership registration completed");
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send({ error: error.message });
+    const newUser = await model.User({ nickname, email, password })
+    await newUser.save();
+    return res.send(`Membership registration completed`);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ err: err.message });
   }
 });
 
@@ -26,10 +26,10 @@ router.post("/user/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const userEmail = await model.User.findOne({ email: email });
-    if (!userEmail) return res.status(400).send({ error: "존재하지 않는 이메일 입니다." });
+    if (!userEmail) return res.status(400).send({ err: "email does not exitst" });
 
     const correctUserEmail = userEmail.authenticate(password);
-    if (!correctUserEmail) return res.status(400).send({ error: "잘못된 패스워드 입니다." });
+    if (!correctUserEmail) return res.status(400).send({ err: "incorrect password" });
 
     // server/index.js 에서 설정한 secret 을 가져온다
     const secret = req.app.get("jwt-secret");
@@ -51,9 +51,9 @@ router.post("/user/login", async (req, res) => {
       nickname: userEmail.nickname,
       token: token,
     });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send({ error: error.message });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ err: err.message });
   }
 });
 
@@ -62,12 +62,11 @@ router.post("/user/logout", async (req, res) => {
   try {
     const { email } = req.body;
     if (!email) return res.status(400).send({ err: "email is required" });
-    // email 을 찾고 지운다.
     const logout = await model.User.findOneAndDelete(email);
     return res.send(logout);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send({ error: error.message });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ err: err.message });
   }
 });
 
@@ -84,9 +83,9 @@ router.get("/user/token", async (req, res) => {
       if (err) return res.status(400).send({ err: err.message })
       return res.send(data);
     });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send({ error: error.message });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ err: err.message });
   }
 });
 

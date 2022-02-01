@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 router.post("/article/create", async (req, res) => {
   try {
     const { board, content, title } = req.body;
-    if (!board | !content | !title) return res.status(400).send({ err: "Both board and content and title is required" });
+    if (!board || !content || !title) return res.status(400).send({ err: "Both board and content and title is required" });
     // router/user 에 작성한 token 체크 로직을 활용한다
     const { authorization } = req.headers;
     if (!authorization) return res.status(401).send({ err: "Unauthorized" });
