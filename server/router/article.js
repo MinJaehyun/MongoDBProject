@@ -9,7 +9,7 @@ router.post("/article/create", async (req, res) => {
   try {
     const { board, content, title } = req.body;
     if (!board || !content || !title) return res.status(400).send({ err: "Both board and content and title is required" });
-    // router/user 에 작성한 token 체크 로직을 활용한다
+
     const { authorization } = req.headers;
     if (!authorization) return res.status(401).send({ err: "Unauthorized" });
     const token = authorization.split(" ")[1];
@@ -24,9 +24,9 @@ router.post("/article/create", async (req, res) => {
       }).save();
       return res.send(article);
     });
-  } catch (error) {
-    console.log('error: ', error);
-    return res.status(500).send({ error: error.message });
+  } catch (err) {
+    console.log('err: ', err);
+    return res.status(500).send({ err: err.message });
   }
 });
 
@@ -35,9 +35,9 @@ router.get("/article/read", async (req, res) => {
   try {
     const article = await model.Article.find({});
     return res.send(article);
-  } catch (error) {
-    console.log('error: ', error);
-    return res.status(500).send({ error: error.message });
+  } catch (err) {
+    console.log('err: ', err);
+    return res.status(500).send({ err: err.message });
   }
 });
 
@@ -45,12 +45,12 @@ router.get("/article/read", async (req, res) => {
 router.get("/article/detail/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    if (!mongoose.isValidObjectId(id)) return res.status(400).send({ err: "invalid articleId" });
+    if (!mongoose.isValidObjectId(id)) return res.status(400).send({ err: "articleId is invalid" });
     const article = await model.Article.findById(id);
     return res.send(article);
-  } catch (error) {
-    console.log('error: ', error);
-    return res.status(500).send({ error: error.message });
+  } catch (err) {
+    console.log('err: ', err);
+    return res.status(500).send({ err: err.message });
   }
 });
 
@@ -58,16 +58,16 @@ router.get("/article/detail/:id", async (req, res) => {
 router.patch("/article/update", async (req, res) => {
   try {
     const { id, author, title, content } = req.body;
-    if (!id | !author | !title | !content) return res.status(400).send({ err: "id, author, title, content is required" });
+    if (!id || !author || !title || !content) return res.status(400).send({ err: "id, author, title, content is required" });
     const article = await model.Article.findByIdAndUpdate(
       { _id: id, author },
       { title, content },
       { new: true },
     );
     return res.send(article);
-  } catch (error) {
-    console.log('error: ', error);
-    return res.status(500).send({ error: error.message });
+  } catch (err) {
+    console.log('err: ', err);
+    return res.status(500).send({ err: err.message });
   }
 });
 
@@ -75,16 +75,16 @@ router.patch("/article/update", async (req, res) => {
 router.delete("/article/delete/hard", async (req, res) => {
   try {
     const { id, author } = req.body;
-    if (!id | !author) return res.status(400).send({ err: "Both id and author is required" });
+    if (!id || !author) return res.status(400).send({ err: "Both articleId and authorId is required" });
 
     const article = await model.Article.findByIdAndDelete({
       _id: id,
       author,
     });
     return res.send(article);
-  } catch (error) {
-    console.log('error: ', error);
-    return res.status(500).send({ error: error.message });
+  } catch (err) {
+    console.log('err: ', err);
+    return res.status(500).send({ err: err.message });
   }
 });
 
@@ -92,7 +92,7 @@ router.delete("/article/delete/hard", async (req, res) => {
 router.delete("/article/delete/soft", async (req, res) => {
   try {
     const { id, author } = req.body;
-    if (!id | !author) return res.status(400).send({ err: "id, author is required" });
+    if (!id || !author) return res.status(400).send({ err: "Both articleId and authorId is required" });
 
     const article = await model.Article.findByIdAndUpdate(
       {
@@ -104,9 +104,9 @@ router.delete("/article/delete/soft", async (req, res) => {
       },
     )
     return res.send(article);
-  } catch (error) {
-    console.log('error: ', error);
-    return res.status(500).send({ error: error.message });
+  } catch (err) {
+    console.log('err: ', err);
+    return res.status(500).send({ err: err.message });
   }
 });
 
