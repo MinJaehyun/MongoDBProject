@@ -15,6 +15,9 @@ ___
 https://documenter.getpostman.com/view/11441469/UVeCR8cw
 
 ___
+### NoSQL DB Design
+![image](https://user-images.githubusercontent.com/43669992/152146936-3f7eaf07-ec9f-4b90-a290-bfd2eb39d85d.png)
+
+___
 ### Github Action
     build and eslint test
-___
