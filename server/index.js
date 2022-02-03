@@ -3,7 +3,7 @@ const cors = require("cors");
 const app = express();
 
 const { article, board, comment, reply, user } = require("./router");
-const PORT = 3000;
+const PORT = 8080;
 const SECRET = "jwt@scret@jh82";
 
 // middleware
@@ -29,5 +29,5 @@ app.use(user);
 
 // listen
 app.listen(PORT, () => {
-  console.log(`App listen is http://localhost:${PORT}`);
+  console.log(`App listen is ${PORT}`);
 });

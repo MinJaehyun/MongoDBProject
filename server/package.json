@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
     "mongoose-sequence": "^5.3.1"
   },
   "devDependencies": {
-    "eslint": "^8.7.0"
+    "eslint": "^8.7.0",
+    "nodemon": "^2.0.15"
   }
 }
