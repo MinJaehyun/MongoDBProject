@@ -16,7 +16,7 @@ app.set("jwt-secret", SECRET);
 
 // test method
 app.get("/", (req, res) => {
-  res.send("Server Run!");
+  res.send("READM.md 의 API 를 참조하여 호출 해주세요!");
 });
 
 // router
