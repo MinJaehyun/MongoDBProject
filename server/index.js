@@ -16,7 +16,10 @@ app.set("jwt-secret", SECRET);
 
 // test method
 app.get("/", (req, res) => {
-  res.send("READM.md 의 API 를 참조하여 호출 해주세요!");
+  res.send(`
+  API 를 참조하여 호출 해주세요!
+  https://documenter.getpostman.com/view/11441469/UVeFP77D
+  `);
 });
 
 // router
