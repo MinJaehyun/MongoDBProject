@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-02-04T01:54:39.699Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36" etag="kb8IeOCawZQIVo_DrbHE" version="16.5.3" type="github">
+<mxfile host="app.diagrams.net" modified="2022-02-04T02:44:14.001Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36" etag="2r_dq4z9qKcmHWWa1fao" version="16.5.3" type="github">
   <diagram id="HA8o8jj6pBR4JWg6Elo8" name="Page-1">
     <mxGraphModel dx="2249" dy="772" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -68,52 +68,52 @@
             <mxGeometry y="31" width="540" height="14" as="geometry" />
           </mxCell>
         </UserObject>
-        <mxCell id="rh8cUA5D3BfhogW7gdkN-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rh8cUA5D3BfhogW7gdkN-1" target="rh8cUA5D3BfhogW7gdkN-4">
+        <mxCell id="rh8cUA5D3BfhogW7gdkN-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="rh8cUA5D3BfhogW7gdkN-1" target="rh8cUA5D3BfhogW7gdkN-4" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="rh8cUA5D3BfhogW7gdkN-1" value="Domain" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="rh8cUA5D3BfhogW7gdkN-1" value="Domain" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="110" y="1420" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="rh8cUA5D3BfhogW7gdkN-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="rh8cUA5D3BfhogW7gdkN-2" target="rh8cUA5D3BfhogW7gdkN-3">
+        <mxCell id="rh8cUA5D3BfhogW7gdkN-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="rh8cUA5D3BfhogW7gdkN-2" target="rh8cUA5D3BfhogW7gdkN-3" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="rh8cUA5D3BfhogW7gdkN-2" value="LB" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="620" y="1420" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="rh8cUA5D3BfhogW7gdkN-3" value="EC2" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="800" y="1420" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="rh8cUA5D3BfhogW7gdkN-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rh8cUA5D3BfhogW7gdkN-4" target="rh8cUA5D3BfhogW7gdkN-5">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="rh8cUA5D3BfhogW7gdkN-4" value="Route 53" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="278" y="1420" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="rh8cUA5D3BfhogW7gdkN-6" value="EB 를 사용하여 LB, EC2 생성" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="673" y="1570" width="220" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="rh8cUA5D3BfhogW7gdkN-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rh8cUA5D3BfhogW7gdkN-5" target="rh8cUA5D3BfhogW7gdkN-2">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="rh8cUA5D3BfhogW7gdkN-5" value="Certificate Manager" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="rh8cUA5D3BfhogW7gdkN-2" value="LB" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="450" y="1420" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="rh8cUA5D3BfhogW7gdkN-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="rh8cUA5D3BfhogW7gdkN-14" target="rh8cUA5D3BfhogW7gdkN-6">
+        <mxCell id="NvWh0HuVypmQRfrI9GER-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rh8cUA5D3BfhogW7gdkN-3" target="rh8cUA5D3BfhogW7gdkN-5">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="rh8cUA5D3BfhogW7gdkN-14" value="" style="ellipse;whiteSpace=wrap;html=1;shadow=0;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="590" y="1330" width="386" height="220" as="geometry" />
+        <mxCell id="rh8cUA5D3BfhogW7gdkN-3" value="EC2" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="654" y="1420" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="rh8cUA5D3BfhogW7gdkN-18" value="" style="group;dropTarget=0;pointerEvents=0;" vertex="1" parent="1">
+        <mxCell id="NvWh0HuVypmQRfrI9GER-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rh8cUA5D3BfhogW7gdkN-4" target="rh8cUA5D3BfhogW7gdkN-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rh8cUA5D3BfhogW7gdkN-4" value="Route 53" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="278" y="1420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rh8cUA5D3BfhogW7gdkN-6" value="EB 를 사용하여 LB, EC2 생성" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="497" y="1570" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rh8cUA5D3BfhogW7gdkN-5" value="Certificate Manager" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="827" y="1420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rh8cUA5D3BfhogW7gdkN-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="rh8cUA5D3BfhogW7gdkN-14" target="rh8cUA5D3BfhogW7gdkN-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rh8cUA5D3BfhogW7gdkN-14" value="" style="ellipse;whiteSpace=wrap;html=1;shadow=0;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="419" y="1345" width="376" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="rh8cUA5D3BfhogW7gdkN-18" value="" style="group;dropTarget=0;pointerEvents=0;" parent="1" vertex="1">
           <mxGeometry x="290" y="1220" width="540" height="45" as="geometry" />
         </mxCell>
         <UserObject label="Deploy Flow" placeholders="1" lucidchartObjectId="xT36fCWVs47r" id="rh8cUA5D3BfhogW7gdkN-19">
-          <mxCell style="points=[[0.163,0.967,0],[0.846,0.967,0]];html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;fontSize=19.7;fontColor=#a9afb8;fontStyle=1;align=center;spacingLeft=7;spacingRight=7;spacingTop=2;spacing=3;strokeOpacity=0;fillOpacity=0;rounded=1;absoluteArcSize=1;arcSize=12;fillColor=#ffffff;strokeWidth=1.5;" vertex="1" parent="rh8cUA5D3BfhogW7gdkN-18">
+          <mxCell style="points=[[0.163,0.967,0],[0.846,0.967,0]];html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;fontSize=19.7;fontColor=#a9afb8;fontStyle=1;align=center;spacingLeft=7;spacingRight=7;spacingTop=2;spacing=3;strokeOpacity=0;fillOpacity=0;rounded=1;absoluteArcSize=1;arcSize=12;fillColor=#ffffff;strokeWidth=1.5;" parent="rh8cUA5D3BfhogW7gdkN-18" vertex="1">
             <mxGeometry width="539" height="31" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="" placeholders="1" lucidchartObjectId="xT3678LRERI0" id="rh8cUA5D3BfhogW7gdkN-20">
-          <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;fontSize=11.5;fontColor=#a9afb8;align=center;spacingLeft=7;spacingRight=7;spacingTop=2;spacing=3;strokeOpacity=0;fillOpacity=0;rounded=1;absoluteArcSize=1;arcSize=12;fillColor=#ffffff;strokeWidth=1.5;" vertex="1" parent="rh8cUA5D3BfhogW7gdkN-18">
+          <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;fontSize=11.5;fontColor=#a9afb8;align=center;spacingLeft=7;spacingRight=7;spacingTop=2;spacing=3;strokeOpacity=0;fillOpacity=0;rounded=1;absoluteArcSize=1;arcSize=12;fillColor=#ffffff;strokeWidth=1.5;" parent="rh8cUA5D3BfhogW7gdkN-18" vertex="1">
             <mxGeometry y="31" width="540" height="14" as="geometry" />
           </mxCell>
         </UserObject>
