@@ -1,5 +1,26 @@
-### Deploy
+___
+### Site
 https://www.mjh.world
+
+___
+### APIs
+https://documenter.getpostman.com/view/11441469/UVeFP77D
+
+___
+### Database
+    MongoDB Atlas
+___
+### CI: Github Action
+    build and eslint test
+___
+### CD: Elastic Beanstalk
+    EC2, LB 
+___    
+### Deploy
+    Route 53, Domain, CM, IAM
+___
+### NoSQL DB Design
+![image](https://user-images.githubusercontent.com/43669992/152146936-3f7eaf07-ec9f-4b90-a290-bfd2eb39d85d.png)
 
 ___
 ### Features
@@ -13,20 +34,5 @@ ___
 |  6. 비밀번호 암호화 |    
 |  7. JWT 으로 사용자 인증 |    
 |  8. 게시글 페이지네이션 |
-
-___
-### APIs
-https://documenter.getpostman.com/view/11441469/UVeCR8cw
-
-___
-### NoSQL DB Design
-![image](https://user-images.githubusercontent.com/43669992/152146936-3f7eaf07-ec9f-4b90-a290-bfd2eb39d85d.png)
-
-___
-### Github Action
-    build and eslint test
-
-___
-### Elastic Beanstalk
 
 ___
