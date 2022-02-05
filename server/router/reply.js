@@ -17,7 +17,7 @@ router.post("/reply/create", async (req, res) => {
     jwt.verify(token, secret, async (err, data) => {
       if (err) return res.send(err);
       const reply = await Reply({ author: data.id, commentId, content }).save();
-      return res.send(reply);
+      return res.status(201).send(reply);
     });
   } catch (err) {
     console.log('err: ', err);

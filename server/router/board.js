@@ -26,7 +26,7 @@ router.post("/board/create", async (req, res) => {
     if (!slug) return res.status(400).send({ err: "slug is required" });
 
     const newBoard = await Board({ title, slug }).save();
-    return res.send(newBoard);
+    return res.status(201).send(newBoard);
   } catch (err) {
     console.log(err);
     return res.status(500).send({ err: err.message });

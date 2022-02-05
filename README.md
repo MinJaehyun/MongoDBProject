@@ -22,6 +22,9 @@ ___
 ### NoSQL DB Design
 ![image](https://user-images.githubusercontent.com/43669992/152146936-3f7eaf07-ec9f-4b90-a290-bfd2eb39d85d.png)
 
+### Deploy Flow
+![image](https://user-images.githubusercontent.com/43669992/152505292-bcf84a5e-170d-46ba-a894-e8914407aa18.png)
+
 ___
 ### Features
 | |

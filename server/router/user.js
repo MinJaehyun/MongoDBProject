@@ -14,7 +14,7 @@ router.post("/user/signup", async (req, res) => {
 
     const newUser = await model.User({ nickname, email, password })
     await newUser.save();
-    return res.send(`Membership registration completed`);
+    return res.status(201).send(`Membership registration completed`);
   } catch (err) {
     console.log(err);
     return res.status(500).send({ err: err.message });

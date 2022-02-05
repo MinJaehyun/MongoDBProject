@@ -22,7 +22,7 @@ router.post("/article/create", async (req, res) => {
         content,
         title,
       }).save();
-      return res.send(article);
+      return res.status(201).send(article);
     });
   } catch (err) {
     console.log('err: ', err);
