@@ -56,6 +56,13 @@ jobs:
       #     echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env
       #     cat .env
       #   working-directory: ${{ env.working-directory }}
+      - name: Create env file
+        run: |
+          touch .env
+          echo DB_ID = ${{ secrets.DB_ID }} >> .env
+          echo DB_PASSWORD = ${{ secrets.DB_PASSWORD }} >> .env
+          cat .env
+        working-directory: ${{ env.working-directory }}
 
       # Initialize Node.js
       - name: Install Node.js ${{ matrix.node-version }}
