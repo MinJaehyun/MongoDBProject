@@ -70,6 +70,9 @@ jobs:
         run: npm install
         working-directory: ${{ env.working-directory }}
 
+      # - name: Building application
+      #   run: npm run build
+      #   working-directory: ${{ env.working-directory }}
       # Install AWS CLI 2
       - name: Install AWS CLI 2
         run: |
@@ -90,7 +93,7 @@ jobs:
       # Make ZIP file with source code
       # -x 로 zip파일을 제외한다.
       - name: Generate deployment package
-        run: zip -r deploy.zip . -x '*.git*' './aws/*' './node_modules' './dist/*' awscliv2.zip
+        run: zip -r deploy.zip . -x '*.git*' './aws/*' '**node_modules**' 'package-lock.json' './dist/*' awscliv2.zip
         working-directory: ${{ env.working-directory }}
 
       # Deploy to Elastic Beanstalk
