@@ -41,8 +41,6 @@ app.get("/", (req, res) => {
   res.send(html);
 });
 
-
-
 // listen
 app.listen(PORT, () => {
   console.log(`App listen is ${PORT}`);
