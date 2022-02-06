@@ -30,7 +30,7 @@ const html = `
 </head>
 <body>
   <h1>
-  <a href="https://documenter.getpostman.com/view/11441469/UVeFP77D" style="text-decoration:none">LINK: API 를 참조하여 호출 해주세요!!</a>
+  <a href="https://documenter.getpostman.com/view/11441469/UVeFP77D" style="text-decoration:none">LINK: API 를 참조하여 호출 해주세요!!!</a>
   </h1>
 </body>
 </html>
