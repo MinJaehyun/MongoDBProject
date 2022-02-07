@@ -45,3 +45,8 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`App listen is ${PORT}`);
 });
+
+/* eslint-disable no-unused-vars */
+app.use((error, req, res, next) => {
+  res.status(500).json({ message: error.message })
+})

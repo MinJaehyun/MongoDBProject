@@ -1,113 +1,23 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const router = express.Router();
-const model = require("../mongoose/model");
-const jwt = require("jsonwebtoken");
+const articleController = require("../controller/article");
 
-// POST, /create
-router.post("/article/create", async (req, res) => {
-  try {
-    const { board, content, title } = req.body;
-    if (!board || !content || !title) return res.status(400).send({ err: "Both board and content and title is required" });
-
-    const { authorization } = req.headers;
-    if (!authorization) return res.status(401).send({ err: "Unauthorized" });
-    const token = authorization.split(" ")[1];
-    const secret = req.app.get("jwt-secret");
-    jwt.verify(token, secret, async (err, data) => {
-      if (err) return res.send(err)
-      const article = await model.Article({
-        author: data.id,
-        path: board,
-        content,
-        title,
-      }).save();
-      return res.status(201).send(article);
-    });
-  } catch (err) {
-    console.log('err: ', err);
-    return res.status(500).send({ err: err.message });
-  }
-});
+// POST, /create - router
+router.post("/article/create", articleController.createArticle)
 
 // GET, /read
-router.get("/article/read", async (req, res) => {
-  try {
-    const article = await model.Article.find({});
-    return res.send(article);
-  } catch (err) {
-    console.log('err: ', err);
-    return res.status(500).send({ err: err.message });
-  }
-});
+router.get("/article/read", articleController.readArticle);
 
 // GET, /detail/:id 
-router.get("/article/detail/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    if (!mongoose.isValidObjectId(id)) return res.status(400).send({ err: "articleId is invalid" });
-    const article = await model.Article.findById(id);
-    return res.send(article);
-  } catch (err) {
-    console.log('err: ', err);
-    return res.status(500).send({ err: err.message });
-  }
-});
+router.get("/article/detail/:id", articleController.detailArticle);
 
 // PATCH, /update
-router.patch("/article/update", async (req, res) => {
-  try {
-    const { id, author, title, content } = req.body;
-    if (!id || !author || !title || !content) return res.status(400).send({ err: "id, author, title, content is required" });
-    const article = await model.Article.findByIdAndUpdate(
-      { _id: id, author },
-      { title, content },
-      { new: true },
-    );
-    return res.send(article);
-  } catch (err) {
-    console.log('err: ', err);
-    return res.status(500).send({ err: err.message });
-  }
-});
+router.patch("/article/update", articleController.updateArticle);
 
 // DELETE, HARD DELETE
-router.delete("/article/delete/hard", async (req, res) => {
-  try {
-    const { id, author } = req.body;
-    if (!id || !author) return res.status(400).send({ err: "Both articleId and authorId is required" });
-
-    const article = await model.Article.findByIdAndDelete({
-      _id: id,
-      author,
-    });
-    return res.send(article);
-  } catch (err) {
-    console.log('err: ', err);
-    return res.status(500).send({ err: err.message });
-  }
-});
+router.delete("/article/delete/hard", articleController.hardDeleteArticle);
 
 // article SOFT DELETE
-router.delete("/article/delete/soft", async (req, res) => {
-  try {
-    const { id, author } = req.body;
-    if (!id || !author) return res.status(400).send({ err: "Both articleId and authorId is required" });
-
-    const article = await model.Article.findByIdAndUpdate(
-      {
-        _id: id,
-        author,
-      },
-      {
-        deleteTime: new Date().getTime() + 30 * 24 * 60 * 60 * 1000,
-      },
-    )
-    return res.send(article);
-  } catch (err) {
-    console.log('err: ', err);
-    return res.status(500).send({ err: err.message });
-  }
-});
+router.delete("/article/delete/soft", articleController.softDleteArticle);
 
 module.exports = router;
