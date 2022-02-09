@@ -3,7 +3,7 @@ const cors = require("cors");
 const app = express();
 
 const { article, board, comment, reply, user } = require("./router");
-// const PORT = 8080;
+const PORT = 8080;
 const SECRET = "jwt@scret@jh82";
 
 // middleware
@@ -41,7 +41,12 @@ app.get("/", (req, res) => {
   res.send(html);
 });
 
-// listen
-// app.listen(PORT, () => {
-//   console.log(`App listen is ${PORT}`);
-// });
+if (process.env.NODE_ENV == 'development') {
+  console.log('development!');
+} else if (process.env.NODE_ENV == 'test') {
+  console.log('test!');
+} else {
+  app.listen(PORT, () => {
+    console.log(`production App listen is ${PORT}`);
+  });
+}
