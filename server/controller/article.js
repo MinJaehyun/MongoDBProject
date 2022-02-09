@@ -1,4 +1,4 @@
-const model = require("../mongoose/model");
+const { Article } = require("../mongoose/schema");  // index.js - Article
 const jwt = require("jsonwebtoken");
 const mongoose = require('mongoose');
 
@@ -13,7 +13,7 @@ exports.createArticle = async (req, res) => {  // next
     const secret = req.app.get("jwt-secret");
     jwt.verify(token, secret, async (err, data) => {
       if (err) return res.send(err)
-      const article = await model.Article({
+      const article = await Article({
         author: data.id,
         path: board,
         content,
@@ -30,7 +30,7 @@ exports.createArticle = async (req, res) => {  // next
 
 exports.readArticle = async (req, res) => {
   try {
-    const article = await model.Article.find({});
+    const article = await Article.find({});
     return res.send(article);
   } catch (err) {
     console.log('err: ', err);
@@ -42,7 +42,7 @@ exports.detailArticle = async (req, res) => {
   try {
     const { id } = req.params;
     if (!mongoose.isValidObjectId(id)) return res.status(400).send({ err: "articleId is invalid" });
-    const article = await model.Article.findById(id);
+    const article = await Article.findById(id);
     return res.send(article);
   } catch (err) {
     console.log('err: ', err);
@@ -54,7 +54,7 @@ exports.updateArticle = async (req, res) => {
   try {
     const { id, author, title, content } = req.body;
     if (!id || !author || !title || !content) return res.status(400).send({ err: "id, author, title, content is required" });
-    const article = await model.Article.findByIdAndUpdate(
+    const article = await Article.findByIdAndUpdate(
       { _id: id, author },
       { title, content },
       { new: true },
@@ -71,7 +71,7 @@ exports.hardDeleteArticle = async (req, res) => {
     const { id, author } = req.body;
     if (!id || !author) return res.status(400).send({ err: "Both articleId and authorId is required" });
 
-    const article = await model.Article.findByIdAndDelete({
+    const article = await Article.findByIdAndDelete({
       _id: id,
       author,
     });
@@ -87,7 +87,7 @@ exports.softDleteArticle = async (req, res) => {
     const { id, author } = req.body;
     if (!id || !author) return res.status(400).send({ err: "Both articleId and authorId is required" });
 
-    const article = await model.Article.findByIdAndUpdate(
+    const article = await Article.findByIdAndUpdate(
       {
         _id: id,
         author,
