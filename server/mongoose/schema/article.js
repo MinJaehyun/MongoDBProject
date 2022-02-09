@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
-const Article = new Schema({
+const ArticleSchema = new Schema({
   // static data
   author: { type: Schema.Types.ObjectId, ref: "User" },
   title: { type: String, required: true },
@@ -21,6 +21,8 @@ const Article = new Schema({
   articleImgAddress: { type: String },
 }, { timestamps: true });
 
-Article.plugin(AutoIncrement, { inc_field: 'key' });
+// Article.plugin(AutoIncrement, { inc_field: 'key' });
+ArticleSchema.plugin(AutoIncrement, { inc_field: 'key' });
+const Article = mongoose.model("Article", ArticleSchema)
 
-module.exports = Article; 
+module.exports = Article;

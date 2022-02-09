@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Comment = new Schema({
+const CommentSchema = new Schema({
   // content, articleImgAddress, createAt, author, article, thumbupCount
   // static
   content: { type: String, required: true },
@@ -14,5 +14,7 @@ const Comment = new Schema({
   // option
   articleImgAddress: { type: String },
 }, { timestamps: true });
+
+const Comment = mongoose.model("Comment", CommentSchema)
 
 module.exports = Comment;

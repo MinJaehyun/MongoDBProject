@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Reply = new Schema({
+const ReplySchema = new Schema({
   // author, content, createdAt, thumbupCount, comment
   // static
   author: { type: Schema.Types.ObjectId, ref: "User" },
@@ -15,5 +15,7 @@ const Reply = new Schema({
   // option
   replyImgAddress: { type: String },
 }, { timestamps: true });
+
+const Reply = mongoose.model("Reply", ReplySchema)
 
 module.exports = Reply;
