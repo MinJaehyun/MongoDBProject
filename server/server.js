@@ -23,24 +23,17 @@ app.use(comment);
 app.use(reply);
 app.use(user);
 
-(() => {
-  try {
-    const db = mongoose.connection;
-    // db.on
-    db.on('error', console.error);
-    db.on('open', () => {
-      console.log(`connected mongoDB!`);
-    });
+// db.on
+const db = mongoose.connection;
+db.on('error', console.error);
+db.on('open', () => {
+  console.log(`connected mongoDB!`);
+});
 
-    // mongoDB connect
-    mongoose.connect(
-      `mongodb+srv://${process.env.DB_ID}:${process.env.DB_PASSWORD}@cluster0.gnquy.mongodb.net/refactoringProject?retryWrites=true&w=majority`
-    );
-
-  } catch (error) {
-    console.log({ error: error.message });
-  }
-})();
+// mongoDB connect
+mongoose.connect(
+  `mongodb+srv://${process.env.DB_ID}:${process.env.DB_PASSWORD}@cluster0.gnquy.mongodb.net/refactoringProject?retryWrites=true&w=majority`
+);
 
 const html = `
 <!DOCTYPE html>
