@@ -70,5 +70,3 @@ if (process.env.NODE_ENV == 'development') {
 app.use((error, req, res, next) => {
   return res.status(500).json({ message: error.message })
 })
-
-module.exports = app;
