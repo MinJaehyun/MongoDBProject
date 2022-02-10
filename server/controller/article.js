@@ -2,7 +2,7 @@ const { Article } = require("../mongoose/schema");  // index.js - Article
 const jwt = require("jsonwebtoken");
 const mongoose = require('mongoose');
 
-exports.createArticle = async (req, res) => {  // next
+exports.createArticle = async (req, res, next) => {
   try {
     const { board, content, title } = req.body;
     if (!board || !content || !title) return res.status(400).send({ err: "Both board and content and title is required" });
@@ -11,20 +11,29 @@ exports.createArticle = async (req, res) => {  // next
     if (!authorization) return res.status(401).send({ err: "Unauthorized" });
     const token = authorization.split(" ")[1];
     const secret = req.app.get("jwt-secret");
+
     jwt.verify(token, secret, async (err, data) => {
       if (err) return res.send(err)
-      const article = await Article({
+      const createArticle = await Article.create({
         author: data.id,
-        path: board,
+        board,
         content,
         title,
       }).save();
-      return res.status(201).send(article);
+      return res.status(201).send(createArticle);
     });
-  } catch (err) {
-    console.log('err: ', err);
-    // next(err);
-    return res.status(500).send({ err: err.message });
+
+    // NOTE: Article.create({}) 와 Article({}).save() 의 기능은 같다!
+
+    // const createArticle = await Article.create({
+    //   // author: data.id,
+    //   board,
+    //   content,
+    //   title,
+    // });
+    // return res.status(201).json(createArticle);
+  } catch (error) {
+    next(error)
   }
 };
 
