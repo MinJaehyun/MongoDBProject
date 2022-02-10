@@ -18,7 +18,7 @@ exports.createArticle = async (req, res, next) => {
         if (err) return res.send(err)
         const createArticle = await Article.create({
           author: data.id,
-          board,
+          path: board,
           content,
           title,
         });
