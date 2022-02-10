@@ -9,22 +9,25 @@ exports.createArticle = async (req, res, next) => {
 
     const { authorization } = req.headers;
     if (!authorization) return res.status(401).send({ err: "Unauthorized" });
+
     const token = authorization.split(" ")[1];
     const secret = req.app.get("jwt-secret");
 
     jwt.verify(token, secret, async (err, data) => {
-      if (err) return res.send(err)
-      const createArticle = await Article.create({
-        author: data.id,
-        board,
-        content,
-        title,
-      }).save();
-      return res.status(201).send(createArticle);
+      try {
+        if (err) return res.send(err)
+        const createArticle = await Article.create({
+          author: data.id,
+          board,
+          content,
+          title,
+        }).save();
+        return res.status(201).send(createArticle);
+      } catch (error) {
+        next(error)
+      }
     });
-
     // NOTE: Article.create({}) 와 Article({}).save() 의 기능은 같다!
-
     // const createArticle = await Article.create({
     //   // author: data.id,
     //   board,
@@ -37,25 +40,25 @@ exports.createArticle = async (req, res, next) => {
   }
 };
 
-exports.readArticle = async (req, res) => {
+exports.readArticle = async (req, res, next) => {
   try {
     const article = await Article.find({});
-    return res.send(article);
-  } catch (err) {
-    console.log('err: ', err);
-    return res.status(500).send({ err: err.message });
+    return res.status(200).json(article);
+  } catch (error) {
+    next(error)
+    // return res.status(500).send({ err: err.message });
   }
 };
 
-exports.detailArticle = async (req, res) => {
+exports.getArticleById = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    if (!mongoose.isValidObjectId(id)) return res.status(400).send({ err: "articleId is invalid" });
-    const article = await Article.findById(id);
-    return res.send(article);
-  } catch (err) {
-    console.log('err: ', err);
-    return res.status(500).send({ err: err.message });
+    const { id } = req.params;  // 1.
+    if (!mongoose.isValidObjectId(id)) return res.status(404).send({ err: "articleId is invalid" });  // 2
+    const article = await Article.findById(id);  // 3
+    if (!id) return res.status(404).send({ err: "articleId is invalid" });  // 4
+    return res.status(200).json(article);
+  } catch (error) {
+    next(error);
   }
 };
 

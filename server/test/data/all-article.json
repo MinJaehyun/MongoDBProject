@@ -1,0 +1,17 @@
+[
+  {
+    "title": "titleRequire1",
+    "content": "contentRequire1",
+    "board": "category1"
+  },
+  {
+    "title": "titleRequire2",
+    "content": "contentRequire2",
+    "board": "category2"
+  },
+  {
+    "title": "titleRequire3",
+    "content": "contentRequire3",
+    "board": "category3"
+  }
+]

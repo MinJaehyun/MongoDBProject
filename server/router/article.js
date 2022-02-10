@@ -6,18 +6,18 @@ const articleController = require("../controller/article");
 router.post("/article/create", articleController.createArticle)
 
 // GET, /read
-// router.get("/article/read", articleController.readArticle);
+router.get("/article/read", articleController.readArticle);
 
 // GET, /detail/:id 
-// router.get("/article/detail/:id", articleController.detailArticle);
+router.get("/article/detail/:id", articleController.getArticleById);
 
 // PATCH, /update
-// router.patch("/article/update", articleController.updateArticle);
+router.patch("/article/update", articleController.updateArticle);
 
 // DELETE, HARD DELETE
-// router.delete("/article/delete/hard", articleController.hardDeleteArticle);
+router.delete("/article/delete/hard", articleController.hardDeleteArticle);
 
 // article SOFT DELETE
-// router.delete("/article/delete/soft", articleController.softDleteArticle);
+router.delete("/article/delete/soft", articleController.softDleteArticle);
 
 module.exports = router;
