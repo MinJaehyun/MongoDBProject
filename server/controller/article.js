@@ -21,7 +21,7 @@ exports.createArticle = async (req, res, next) => {
           board,
           content,
           title,
-        }).save();
+        });
         return res.status(201).send(createArticle);
       } catch (error) {
         next(error)
