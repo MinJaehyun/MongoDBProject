@@ -3,7 +3,7 @@ https://www.mjh.world
 
 ___
 ### CI / CD
-    Github Action + Elastic Beanstalk
+    CI(Github Action) + CD(Elastic Beanstalk)
 ___    
 ### Deploy
     * AWS - EB(EC2, LB), Route 53, Domain, CM, IAM, CloudWatch
