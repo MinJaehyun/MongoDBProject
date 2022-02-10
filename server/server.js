@@ -1,10 +1,10 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
+const cors = require("cors");
 const mongoose = require('mongoose');
-require("dotenv").config();
-
 const { article, board, comment, reply, user } = require("./router");
+
+require("dotenv").config();
 const PORT = 8080;
 const SECRET = "jwt@scret@jh82";
 
@@ -23,10 +23,9 @@ app.use(comment);
 app.use(reply);
 app.use(user);
 
-const db = mongoose.connection;
-
 (() => {
   try {
+    const db = mongoose.connection;
     // db.on
     db.on('error', console.error);
     db.on('open', () => {
@@ -58,7 +57,6 @@ const html = `
 </html>
 `;
 
-// test method
 app.get("/", (req, res) => {
   res.send(html);
 });
@@ -77,5 +75,7 @@ if (process.env.NODE_ENV == 'development') {
 
 /* eslint-disable no-unused-vars */
 app.use((error, req, res, next) => {
-  res.status(500).json({ message: error.message })
+  return res.status(500).json({ message: error.message })
 })
+
+module.exports = app;
