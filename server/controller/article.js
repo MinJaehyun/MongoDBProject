@@ -55,7 +55,7 @@ exports.getArticleById = async (req, res, next) => {
     const { id } = req.params;  // 1.
     if (!mongoose.isValidObjectId(id)) return res.status(404).send({ err: "articleId is invalid" });  // 2
     const article = await Article.findById(id);  // 3
-    if (!id) return res.status(404).send({ err: "articleId is invalid" });  // 4
+    if (!article) return res.status(404).send({ err: "articleId is invalid" });  // 4
     return res.status(200).json(article);
   } catch (error) {
     next(error);
