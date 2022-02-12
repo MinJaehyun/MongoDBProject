@@ -11,7 +11,6 @@ articleModel.findByIdAndUpdate = jest.fn();
 
 const articleId = "62037fc4cc4c2db2cbdd0111";
 const authorId = "620515a50f13a31b0b924500";
-const updateArticle = { title: "update", content: "update" };
 
 let req, res, next;
 beforeEach(() => {
@@ -119,23 +118,28 @@ describe("Article Controller findById", () => {
 });
 
 describe("Article Controller findByIdAndUpdate", () => {
-  beforeEach(() => {
-    req.body = newArticle;
-    // console.log(req.body.authorId);
-  });
+  // beforeEach(() => {
+  //   req.body = newArticle;
+  //   // console.log(req.body.authorId);
+  // });
   // 1. 함수인지
   it("should have an articleController.updateArticle", () => {
     expect(typeof articleController.updateArticle).toBe("function")
   })
   // 2. Model 이 findByIdAndUpdate 메서드를 사용하는지
   it("should call articleModel.findByIdAndUpdate", async () => {
-    req.body._id = newArticle._id;
+    req.body.id = articleId;
     req.body.author = authorId;
-    req.body = updateArticle;
+    req.body.title = "update";
+    req.body.content = "update";
+
     await articleController.updateArticle(req, res, next);
     // toHaveBeenCalledWith: 다음과 같이 호출됨 
     expect(articleModel.findByIdAndUpdate).toHaveBeenCalledWith(
-      { articleId, authorId }, updateArticle, { new: true }
+      { _id: req.body.id, author: req.body.author },
+      { title: req.body.title, content: req.body.content },
+      { new: true }
     );
+    // console.log('req.body', req.body);
   })
 });
