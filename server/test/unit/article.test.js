@@ -8,6 +8,7 @@ articleModel.create = jest.fn();
 articleModel.find = jest.fn();
 articleModel.findById = jest.fn();
 articleModel.findByIdAndUpdate = jest.fn();
+articleModel.findByIdAndDelete = jest.fn();
 
 const articleId = "62037fc4cc4c2db2cbdd0111";
 const authorId = "620515a50f13a31b0b924500";
@@ -176,8 +177,51 @@ describe("Article Controller findByIdAndUpdate", () => {
 });
 
 
+describe("Article Controller findByIdAndDelete", () => {
+  // 1. function
+  it("should have an hardDeleteArticle function", () => {
+    expect(typeof articleController.hardDeleteArticle).toBe("function");
+  })
+  // 2. method
+  it("should call articleModel.findByIdAndDelete", async () => {
+    req.body.id = articleId;
+    req.body.author = authorId;
+    await articleController.hardDeleteArticle(req, res, next);
+    expect(articleModel.findByIdAndDelete).toHaveBeenCalledWith(
+      { _id: articleId, author: authorId }
+    );
+  });
+  // 3. 임의 객체를 삭제하고, 삭제이므로 json 응답 없고, 성공 시 상태코드를 출력한다
+  it("should return 200 response", async () => {
+    let deleteArticle = {
+      _id: "62037fc4cc4c2db2cbdd0111",
+      authorId: "620515a50f13a31b0b924500",
+      title: "update",
+      content: "update"
+    }
+    articleModel.findByIdAndDelete.mockReturnValue(deleteArticle);
+    await articleController.hardDeleteArticle(req, res, next);
+    expect(res.statusCode).toBe(200);
+    expect(res._getJSONData()).toStrictEqual(deleteArticle)
+    expect(res._isEndCalled()).toBeTruthy();
+  })
+  // 4. id 가 없는지 
+  it("should handle 404 when item doesn't exist", async () => {
+    articleModel.findByIdAndDelete.mockReturnValue(null);
+    await articleController.hardDeleteArticle(req, res, next);
+    expect(res.statusCode).toBe(404);
+    expect(res._isEndCalled).toBeTruthy();
+  })
+  // 5. handle errors
+  it("should handle errors", async () => {
+    const errorMessage = { message: "error" };
+    const rejectPromise = Promise.reject(errorMessage);
+    articleModel.findByIdAndUpdate.mockReturnValue(rejectPromise);
+    await articleController.updateArticle(req, res, next);
+    expect(next).toHaveBeenCalledWith(errorMessage);
+    // TODO: 함수에 next 인자를 사용하는지 테스트 하는 구문과, catch 블럭에서 next(error) 를 toHaveBeenCalledWith 사용하는지 테스트하는 구문 넣어도 될 듯하다. 
+  })
+})
 
-
-
-
-
+// NOTE: softDleteArticle 는 hardDeleteArticle 와 동일한 테스트이므로 controller 만 변경하고, 테스트는 pass 한다!
+// deleteTime 는 update 의 2번째 인자로 추가하면 될 듯하다. 

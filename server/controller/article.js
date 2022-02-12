@@ -77,27 +77,25 @@ exports.updateArticle = async (req, res, next) => {
   }
 };
 
-exports.hardDeleteArticle = async (req, res) => {
+exports.hardDeleteArticle = async (req, res, next) => {
   try {
     const { id, author } = req.body;
-    if (!id || !author) return res.status(400).send({ err: "Both articleId and authorId is required" });
-
     const article = await Article.findByIdAndDelete({
       _id: id,
       author,
     });
-    return res.send(article);
+    if (!article) return res.status(404).send({ err: "Both articleId and authorId is required" });
+    return res.status(200).json(article);
   } catch (err) {
-    console.log('err: ', err);
-    return res.status(500).send({ err: err.message });
+    next(err)
+    // console.log('err: ', err);
+    // return res.status(500).send({ err: err.message });
   }
 };
 
-exports.softDleteArticle = async (req, res) => {
+exports.softDleteArticle = async (req, res, next) => {
   try {
     const { id, author } = req.body;
-    if (!id || !author) return res.status(400).send({ err: "Both articleId and authorId is required" });
-
     const article = await Article.findByIdAndUpdate(
       {
         _id: id,
@@ -107,9 +105,9 @@ exports.softDleteArticle = async (req, res) => {
         deleteTime: new Date().getTime() + 30 * 24 * 60 * 60 * 1000,
       },
     )
-    return res.send(article);
+    if (!article) return res.status(404).send({ err: "Both articleId and authorId is required" });
+    return res.status(200).json(article);
   } catch (err) {
-    console.log('err: ', err);
-    return res.status(500).send({ err: err.message });
+    next(err)
   }
 };
