@@ -22,7 +22,6 @@ beforeEach(() => {
 describe("Article Controller Create", () => {
   beforeEach(() => {
     req.body = newArticle;
-    // console.log(req.body.authorId);
   })
   it("should have a createArticle function", () => {
     expect(typeof articleController.createArticle).toBe("function")
@@ -126,7 +125,7 @@ describe("Article Controller findByIdAndUpdate", () => {
   it("should have an articleController.updateArticle", () => {
     expect(typeof articleController.updateArticle).toBe("function")
   })
-  // 2. Model 이 findByIdAndUpdate 메서드를 사용하는지
+  // 2. Model 이 findByIdAndUpdate 메서드를 사용하는지, 인자는 무얼 호출하는지
   it("should call articleModel.findByIdAndUpdate", async () => {
     req.body.id = articleId;
     req.body.author = authorId;
@@ -135,6 +134,7 @@ describe("Article Controller findByIdAndUpdate", () => {
 
     await articleController.updateArticle(req, res, next);
     // toHaveBeenCalledWith: 다음과 같이 호출됨 
+    // NOTE: 136: req 를 받기 위해서는 131~134: 을 설정해야 한다.
     expect(articleModel.findByIdAndUpdate).toHaveBeenCalledWith(
       { _id: req.body.id, author: req.body.author },
       { title: req.body.title, content: req.body.content },
@@ -142,4 +142,42 @@ describe("Article Controller findByIdAndUpdate", () => {
     );
     // console.log('req.body', req.body);
   })
+  // 3. return json body  and  response code 200
+  it("should return json body  and  response code 200", async () => {
+    req.body.id = articleId;
+    req.body.author = authorId;
+    req.body.title = "update";
+    req.body.content = "update";
+
+    // ERROR: articleModel.findByIdAndUpdate.mockReturnValue(newArticle);  // article 가져오는게 아니라, 업데이트 된 값을 가져와야 한다!
+    articleModel.findByIdAndUpdate.mockReturnValue(req.body);
+    await articleController.updateArticle(req, res, next);
+    expect(res.statusCode).toBe(200);
+    expect(res._getJSONData()).toStrictEqual(req.body);
+    expect(res._isEndCalled()).toBeTruthy();
+    console.log('req.body', req.body);
+  })
+  // 4. should handle 404
+  it("should handle 404 when item doesn't exist", async () => {
+    // 잘못된 id 를 입력한다. 빈 값을 입력
+    articleModel.findByIdAndUpdate.mockReturnValue(null)
+    await articleController.updateArticle(req, res, next);
+    expect(res.statusCode).toBe(404);
+    expect(res._isEndCalled()).toBeTruthy();
+  })
+  // 5. should handle error
+  it("should handle error", async () => {
+    const errorMessage = { message: "error" };
+    const rejectPromise = Promise.reject(errorMessage);
+    articleModel.findByIdAndUpdate.mockReturnValue(rejectPromise);
+    await articleController.updateArticle(req, res, next);
+    expect(next).toHaveBeenCalledWith(errorMessage);
+  })
 });
+
+
+
+
+
+
+

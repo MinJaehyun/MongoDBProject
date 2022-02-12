@@ -65,17 +65,15 @@ exports.getArticleById = async (req, res, next) => {
 exports.updateArticle = async (req, res, next) => {
   try {
     const { id, author, title, content } = req.body;
-    const article = await Article.findByIdAndUpdate(
+    const updateArticle = await Article.findByIdAndUpdate(
       { _id: id, author },
       { title, content },
       { new: true },
     );
-    if (!article) return res.status(404).send();
-    return res.status(200).json(article);
-
+    if (!updateArticle) return res.status(404).send();
+    return res.status(200).json(updateArticle);
   } catch (err) {
     next(err)
-    // return res.status(500).send({ err: err.message });
   }
 };
 
