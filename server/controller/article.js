@@ -62,19 +62,20 @@ exports.getArticleById = async (req, res, next) => {
   }
 };
 
-exports.updateArticle = async (req, res) => {
+exports.updateArticle = async (req, res, next) => {
   try {
     const { id, author, title, content } = req.body;
-    if (!id || !author || !title || !content) return res.status(400).send({ err: "id, author, title, content is required" });
     const article = await Article.findByIdAndUpdate(
       { _id: id, author },
       { title, content },
       { new: true },
     );
-    return res.send(article);
+    if (!article) return res.status(404).send();
+    return res.status(200).json(article);
+
   } catch (err) {
-    console.log('err: ', err);
-    return res.status(500).send({ err: err.message });
+    next(err)
+    // return res.status(500).send({ err: err.message });
   }
 };
 
