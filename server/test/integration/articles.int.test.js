@@ -49,13 +49,18 @@ it("GET id doesn't exist /article/detail/:id", async () => {
 // update
 it("PATCH /article/update", async () => {
   const res = await request(app)
-    .patch('/article/update')
-    .send({ id: "62037fc4cc4c2db2cbdd0111", author: "620515a50f13a31b0b924500", title: "update", content: "update" });
+    .patch("/article/update")
+    .send({ id: firstArticle._id, author: firstArticle.authorId, title: "update", content: "update" });
+  // 에러: 위 id 에 newArticle._id 를 입력함..
+  // console.log("firstArticle._id", firstArticle._id);
   expect(res.statusCode).toBe(200);
-  // expect(res.body.id).toBe("62037fc4cc4c2db2cbdd0111");
-  // expect(res.body.author).toBe("620515a50f13a31b0b924500");
-  // expect(res.body.title).toBe("update");
-  // expect(res.body.content).toBe("update");
+  // res.body._id 는 실제 DB 의 첫 번째 객체의 ._id 를 의미한다!
+  expect(res.body._id).toBe(firstArticle._id);
+  // res.body.author 는 실제 DB 에 속성을 의미한다. 
+  // firstArticle 은 /article/read 한 [0]번째 객체이다.
+  expect(res.body.author).toBe(firstArticle.author);
+  expect(res.body.title).toBe("update");
+  expect(res.body.content).toBe("update");
 })
 
 // delete
