@@ -156,7 +156,7 @@ describe("Article Controller findByIdAndUpdate", () => {
     expect(res.statusCode).toBe(200);
     expect(res._getJSONData()).toStrictEqual(req.body);
     expect(res._isEndCalled()).toBeTruthy();
-    console.log('req.body', req.body);
+    // console.log('req.body', req.body);
   })
   // 4. should handle 404
   it("should handle 404 when item doesn't exist", async () => {
