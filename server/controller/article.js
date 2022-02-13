@@ -99,7 +99,7 @@ exports.hardDeleteArticle = async (req, res, next) => {
   }
 };
 
-exports.softDleteArticle = async (req, res, next) => {
+exports.softDeleteArticle = async (req, res, next) => {
   try {
     const { id, author } = req.body;
     const article = await Article.findByIdAndUpdate(
@@ -111,8 +111,11 @@ exports.softDleteArticle = async (req, res, next) => {
         deleteTime: new Date().getTime() + 30 * 24 * 60 * 60 * 1000,
       },
     )
-    if (!article) return res.status(404).send({ err: "Both articleId and authorId is required" });
-    return res.status(200).json(article);
+    if (article) {
+      return res.status(200).json(article);
+    } else {
+      return res.status(404).send({ err: "Both articleId and authorId is required" });
+    }
   } catch (err) {
     next(err)
   }

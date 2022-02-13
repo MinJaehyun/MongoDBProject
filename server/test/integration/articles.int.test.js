@@ -63,6 +63,14 @@ it("PATCH /article/update", async () => {
   expect(res.body.content).toBe("update");
 })
 
+// soft delete
+it("DELETE /article/delete/soft", async () => {
+  const res = await request(app)
+    .delete("/article/delete/soft")
+    .send({ id: firstArticle._id, author: firstArticle.authorId });
+  expect(res.statusCode).toBe(200);
+})
+
 // hard delete
 it("DELETE /article/delete/hard", async () => {
   const res = await request(app)
@@ -71,10 +79,3 @@ it("DELETE /article/delete/hard", async () => {
   expect(res.statusCode).toBe(200);
 })
 
-// soft delete
-it("DELETE /article/delete/soft", async () => {
-  const res = await request(app)
-    .delete("/article/delete/soft")
-    .send({ id: firstArticle._id, author: firstArticle.authorId });
-  expect(res.statusCode).toBe(200);
-})

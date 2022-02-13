@@ -18,6 +18,6 @@ router.patch("/article/update", articleController.updateArticle);
 router.delete("/article/delete/hard", articleController.hardDeleteArticle);
 
 // article SOFT DELETE
-router.delete("/article/delete/soft", articleController.softDleteArticle);
+router.delete("/article/delete/soft", articleController.softDeleteArticle);
 
 module.exports = router;
