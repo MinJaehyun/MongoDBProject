@@ -8,7 +8,7 @@ router.post("/user/signup", userController.signupUser);
 // login   
 router.post("/user/login", userController.loginUser);
 
-// FIXME: 임시 logout 
+// logout 
 router.post("/user/logout", userController.logoutUser);
 
 // 사용자 토큰 체크 

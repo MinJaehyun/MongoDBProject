@@ -5,24 +5,24 @@ const mongoose = require('mongoose');
 exports.createArticle = async (req, res, next) => {
   try {
     const { board, content, title } = req.body;
-    if (!board || !content || !title) return res.status(400).send({ err: "Both board and content and title is required" });
-
+    // if (!board || !content || !title) return res.status(404).send({ err: "Both board and content and title is required" });
+    // 25: createArticle  위에 작성하기. if (!createArticle) return res.status(404).send({ err: "Both board and content and title is required" });
     const { authorization } = req.headers;
-    if (!authorization) return res.status(401).send({ err: "Unauthorized" });
-
+    // if (!authorization) return res.status(401).send({ err: "Unauthorized" });
+    // 위 내용은 유무 판단할 필요 없으므로 pass
     const token = authorization.split(" ")[1];
     const secret = req.app.get("jwt-secret");
 
     jwt.verify(token, secret, async (err, data) => {
       try {
-        if (err) return res.send(err)
+        // if (err) return res.send(err)
         const createArticle = await Article.create({
           author: data.id,
           path: board,
           content,
           title,
         });
-        return res.status(201).send(createArticle);
+        return res.status(201).json(createArticle);
       } catch (error) {
         next(error)
       }

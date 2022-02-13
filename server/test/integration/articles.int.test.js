@@ -3,15 +3,36 @@ const app = require('../../server');
 // const newArticle = require('../data/new-article.json');
 let firstArticle;
 
+// let token;
+
+// beforeAll(async () => {
+//   const res = await request(app)
+//     .post('/user/login')
+//     .send({ email: "krism02@naver.com", password: 1234567 })
+// .end((err, response) => {
+//   token = response.body.token;
+// })
+// console.log('res.body: ', res.body);
+// token = response.body.token;
+// console.log('token: ', token);
+// })
+
+
+// 아래에서 token 을 받기 위해, 위에서 전역으로 token 가져온다.
+// login 시, token 을 받는다.
+
 // create
 it("POST /article/create", async () => {
-  // FIXME: jwt.verify 적용된 속성이라 당장 테스트 안됨. 추 후 수정하기
-  // const response = await request(app)
-  //   .post('/article/create')
-  //   .send(newArticle);
-  // expect(response.statusCode).toBe(200);
-  // expect(response.body.title).toBe(newArticle.title)
-  // expect(response.body.content).toBe(newArticle.content)
+  const res = await request(app)
+    .post('/article/create')
+    // .set('Authorization', `Bearer ${token}`)
+    .send({ board: "category1", content: "titleRequire", title: "contentRequire" });
+  // authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDUxNWE1MGYxM2EzMWIwYjkyNDUxOSIsImVtYWlsIjoia3Jpc20wMUBuYXZlci5jb20iLCJuaWNrbmFtZSI6ImpoODIiLCJpYXQiOjE2NDQ1MDAzOTksImV4cCI6MTY0NTEwNTE5OX0.wkIEl5IcPmxytssFWTBIjGqx8xKnh6sqaqlyLMRecyA"
+  // console.log('res.headers: ', res.headers);
+  // console.log('res.headers.authorization: ', res.headers.authorization);
+  expect(res.statusCode).toBe(200);
+  // expect(res.body.title).toBe(newArticle.title)
+  // expect(res.body.content).toBe(newArticle.content)
 })
 
 // create

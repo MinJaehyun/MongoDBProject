@@ -54,7 +54,8 @@ exports.loginUser = async (req, res) => {
 exports.logoutUser = async (req, res) => {
   try {
     const { email } = req.body;
-    if (!email) return res.status(400).send({ err: "email is required" });
+    console.log('email: ', email);
+    // if (!email) return res.status(400).send({ err: "email is required" });
     const logout = await User.findOneAndDelete(email);
     return res.send(logout);
   } catch (err) {
@@ -65,7 +66,7 @@ exports.logoutUser = async (req, res) => {
 exports.tokenUser = async (req, res) => {
   try {
     const { authorization } = req.headers;
-    if (!authorization) return res.status(401).send({ err: "Unauthorized" });
+    // if (!authorization) return res.status(401).send({ err: "Unauthorized" });
 
     const token = authorization.split(" ")[1];
     const secret = req.app.get("jwt-secret");
