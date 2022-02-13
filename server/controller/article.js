@@ -87,8 +87,11 @@ exports.hardDeleteArticle = async (req, res, next) => {
       _id: id,
       author,
     });
-    if (!article) return res.status(404).send({ err: "Both articleId and authorId is required" });
-    return res.status(200).json(article);
+    if (article) {
+      return res.status(200).json(article);
+    } else {
+      return res.status(404).send({ err: "Both articleId and authorId is required" });
+    }
   } catch (err) {
     next(err)
     // console.log('err: ', err);
