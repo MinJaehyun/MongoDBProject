@@ -29,7 +29,7 @@ https://documenter.getpostman.com/view/11441469/UVeFP77D
 
 ___
 ### NoSQL DB Design
-![image](https://user-images.githubusercontent.com/43669992/152146936-3f7eaf07-ec9f-4b90-a290-bfd2eb39d85d.png)
+![image](https://user-images.githubusercontent.com/43669992/154121509-55f4a2a8-fee6-4f75-a1fb-9bd0b6cf9f07.png)
 
 ___
 ### Deploy Flow
