@@ -1,12 +1,12 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const cors = require("cors");
+const cors = require('cors');
 const mongoose = require('mongoose');
-const { article, board, comment, reply, user } = require("./router");
+const { article, board, comment, reply, user } = require('./router');
+require('dotenv').config();
 
-require("dotenv").config();
 const PORT = 8080;
-const SECRET = "jwt@scret@jh82";
+const SECRET = 'jwt@scret@jh82';
 
 // middleware
 app.use(cors());
@@ -14,7 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // app.set
-app.set("jwt-secret", SECRET);
+app.set('jwt-secret', SECRET);
+app.set('view engine', 'ejs');
 
 // router
 app.use(article);
@@ -30,37 +31,17 @@ db.on('open', () => {
   console.log(`connected mongoDB!`);
 });
 
-// mongoDB connect
+// mongoDB Atlas connect
 mongoose.connect(
   `mongodb+srv://${process.env.DB_ID}:${process.env.DB_PASSWORD}@cluster0.gnquy.mongodb.net/refactoringProject?retryWrites=true&w=majority`
 );
 
-const html = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>mongoDBProject APIs</title>
-</head>
-<body>
-  <h1>
-  <a href="https://documenter.getpostman.com/view/11441469/UVeFP77D" style="text-decoration:none">LINK: API 를 참조하여 호출 해주세요!!!</a>
-  </h1>
-  <h4>
-  <a href="https://mjh.world/article/read" style="text-decoration:none; color:blue;">LINK: 예: www.mjh.world/article/read</a>
-  </h4>
-  <h4>
-  <a href="https://github.com/MinJaehyun/MongoDBProject" style="text-decoration:none; color:blue;">LINK: 프로젝트 상세 설명서</a>  
-  </h4>
-  
-</body>
-</html>
-`;
-
+// mjh.world 접근 시, home.ejs 출력
 app.get("/", (req, res) => {
-  res.send(html);
+  res.render('home.ejs');
 });
 
+// dev, prod, test 로 구분하여 접근 설정
 if (process.env.NODE_ENV == 'development') {
   app.listen(PORT, () => {
     console.log(`development App listen is ${PORT}`);
@@ -73,6 +54,7 @@ if (process.env.NODE_ENV == 'development') {
   });
 }
 
+// 에러 중복 처리 구문
 /* eslint-disable no-unused-vars */
 app.use((error, req, res, next) => {
   return res.status(500).json({ message: error.message })
