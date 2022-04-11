@@ -6,7 +6,7 @@ const { article, board, comment, reply, user } = require('./router');
 require('dotenv').config();
 
 const PORT = 8080;
-const SECRET = 'jwt@scret@jh82';
+const SECRET = 'jwt@secret@jh82';
 
 // middleware
 app.use(cors());
