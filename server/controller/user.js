@@ -21,7 +21,7 @@ exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
-    if (!user) return res.status(400).send({ err: "email does not exist" });
+    if (!user) return res.status(401).send({ err: "email does not exist" });
 
     const correctUserEmail = user.authenticate(password);
     if (!correctUserEmail) return res.status(401).send({ err: "incorrect password" });
@@ -30,7 +30,7 @@ exports.loginUser = async (req, res) => {
     const secret = req.app.get("jwt-secret");
     const token = jwt.sign(
       {
-        id: user._id,
+        _id: user._id,
         email: user.email,
         nickname: user.nickname,
       },
