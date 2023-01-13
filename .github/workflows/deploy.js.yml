@@ -112,7 +112,7 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: mjhweb-EB
-          environment_name: Ebtest-env
+          environment_name: Mjhwebeb-env
           region: ${{ secrets.AWS_REGION }}
           version_label: ${{github.SHA}}
           deployment_package: server/deploy.zip
