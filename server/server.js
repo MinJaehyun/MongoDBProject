@@ -36,7 +36,7 @@ mongoose.connect(
   `mongodb+srv://${process.env.DB_ID}:${process.env.DB_PASSWORD}@cluster0.gnquy.mongodb.net/refactoringProject?retryWrites=true&w=majority`
 );
 
-// mjh.world 접근 시, home.ejs 출력
+// mjhweb.xyz 접근 시, home.ejs 출력
 app.get("/", (req, res) => {
   res.render('home.ejs');
 });
