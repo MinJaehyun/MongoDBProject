@@ -1,5 +1,5 @@
 ### Site
-https://www.mjh.world
+주소 이전: https://www.mjh.world -> https://www.mjhweb.xyz
 
 ___
 ### CI / CD
